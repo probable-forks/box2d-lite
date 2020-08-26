@@ -19,3 +19,10 @@ if (BOX2D_BUILD_SAMPLES)
 	endif()
 
 endif()
+
+option(PACKAGE_TESTS "Build the tests" ON)
+
+if(PACKAGE_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
