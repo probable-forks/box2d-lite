@@ -6,6 +6,6 @@ set (TEST_SOURCE_FILES
 	collide-test.cpp)
 
 add_executable(box2d_tests ${TEST_SOURCE_FILES})
-target_link_libraries(box2d_tests PRIVATE GTest::gtest box2d-lite)
+target_link_libraries(box2d_tests PRIVATE GTest::gtest)
 
 gtest_discover_tests(box2d_tests)
