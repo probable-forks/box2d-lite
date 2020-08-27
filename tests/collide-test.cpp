@@ -1,16 +1,11 @@
 #include <gtest/gtest.h>
 
-TEST(CollisionTest, posA) {
+TEST(CollisionTest, frontNormal) {
     EXPECT_EQ(1, 1);
     EXPECT_TRUE(true);
 }
 
-TEST(CollisionTest, posB) {
-    EXPECT_EQ(1, 1);
-    EXPECT_TRUE(true);
-}
-
-TEST(CollisionTest, posC) {
+TEST(CollisionTest, sideNormal) {
     EXPECT_EQ(1, 1);
     EXPECT_TRUE(true);
 }
