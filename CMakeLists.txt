@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.8)
 
 project(box2d-lite LANGUAGES CXX)
 
+include(CTest)
+
 add_subdirectory(src)
 
 option(BOX2D_BUILD_SAMPLES "Build the box2d-lite sample program" ON)
@@ -20,9 +22,7 @@ if (BOX2D_BUILD_SAMPLES)
 
 endif()
 
-option(PACKAGE_TESTS "Build the tests" ON)
-
-if(PACKAGE_TESTS)
+if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif()
