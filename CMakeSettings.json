@@ -33,7 +33,7 @@
       "remoteCopySourcesMethod": "rsync",
       "addressSanitizerRuntimeFlags": "detect_leaks=0",
       "variables": [],
-      "cmakeToolchain": "/home/demo/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      "cmakeToolchain": ""
     }
   ]
 }
