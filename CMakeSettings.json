@@ -11,7 +11,7 @@
       "ctestCommandArgs": "",
       "inheritEnvironments": [ "msvc_x86" ],
       "variables": [],
-      "cmakeToolchain": "C:/Users/ersweet/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      "cmakeToolchain": ""
     },
     {
       "name": "Linux-GCC-Debug",
