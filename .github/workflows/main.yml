@@ -1,0 +1,88 @@
+# Build and test a CMake project with vcpkg on Windows and Linux
+name: CI
+
+# Run CI on every push
+# on: push
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  # Build with CMake and run CTest, use vcpkg to acquire dependencies and cache in GitHub Packages
+  build:
+
+    # Setup cross-platform build on Windows and Linux
+    strategy:
+      matrix:
+        os: ['windows-2019', 'ubuntu-20.04']
+        include:
+          - os: 'windows-2019'
+            triplet: 'x86-windows'
+            mono: ''
+          - os: 'ubuntu-20.04'
+            triplet: 'x64-linux'
+            mono: 'mono'
+
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      
+      # Install latest CMake
+      - uses: lukka/get-cmake@latest
+
+      # Setup vcpkg
+      - name: Restore from cache and run vcpkg
+        uses: lukka/run-vcpkg@v3
+        with:
+          # Location of the vcpkg as submodule of the repository.
+          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          setupOnly: true 
+      
+      # Setup NuGet credentials for uploading cached packages (and download if repo is private)
+      - name: 'Setup NuGet credentials'
+        shell: 'bash'
+        run: >
+          ${{ matrix.mono }} `vcpkg/vcpkg fetch nuget | tail -n 1` 
+          sources add 
+          -source "https://nuget.pkg.github.com/WillBuik/index.json"
+          -storepasswordincleartext
+          -name "WillBuikGithub"
+          -username "WillBuik"
+          -password "${{ secrets.GITHUB_TOKEN }}"
+
+       # Update apt
+      - name: 'Update apt'
+        shell: 'bash'
+        run: 'sudo apt-get update'
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
+          
+       # Install apt-dependencies on Linux for glfw3
+      - name: 'Apt dependencies'
+        shell: 'bash'
+        run: 'sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev'
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
+
+      # Build
+      - name: 'Build with CMake and Ninja'
+        uses: lukka/run-cmake@v2
+        with:
+          cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
+          useVcpkgToolchainFile: true
+          buildWithCMakeArgs: '-- -v'
+          buildDirectory: '${{ runner.workspace }}/b/ninja'
+        env:
+          VCPKG_BINARY_SOURCES: 'clear;nuget,WillBuikGithub,readwrite'
+          RUNVCPKG_VCPKG_TRIPLET: ${{ matrix.triplet }}
+
+      # Test
+      - name: 'Run CTest'
+        working-directory: '${{ runner.workspace }}/b/ninja'
+        shell: 'bash'
+        run: 'ctest'
+    
