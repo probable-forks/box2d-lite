@@ -7,7 +7,7 @@
       "name": "samples-noGUI.exe (samples-noGUI\\samples-noGUI.exe)",
       "project": "CMakeLists.txt",
       "projectTarget": "samples-noGUI.exe (samples-noGUI\\samples-noGUI.exe)",
-      "remoteMachineName": "DESKTOP-RVU2FRJ",
+      "remoteMachineName": "", // remote Windows server name or IP address here
       "cwd": "${debugInfo.defaultWorkingDirectory}",
       "program": "${debugInfo.fullTargetPath}",
       "deploy": [],
