@@ -2,9 +2,19 @@
   "name": "box2d-lite",
   "version-string": "0.0.1",
   "dependencies": [
+    "beicode", 
     "glad",
     "glfw3",
-    "imgui",
-    "gtest"
+    {
+      "name": "gtest",
+      "version>=": "1.10.0"
+    },
+    "imgui"
+  ],
+  "overrides": [
+    {
+      "name": "glfw3",
+      "version": "3.3.2"
+    }
   ]
 }

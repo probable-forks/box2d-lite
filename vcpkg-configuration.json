@@ -1,0 +1,14 @@
+{
+  "default-registry": {
+    "kind": "builtin",
+    "baseline": "5065bf984abad0d3ad79f73cdc59ee95733c91ad"
+  },
+  "registries": [
+    {
+      "kind": "git",
+      "repository": "https://github.com/northwindtraders/vcpkg-registry",
+      "packages": [ "beicode" ],
+      "baseline": "90408297ac2dbd865c2693a2b531c6304e6ed4aa"
+    }
+  ]
+}

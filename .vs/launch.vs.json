@@ -3,16 +3,17 @@
   "defaults": {},
   "configurations": [
     {
-      "type": "cppgdb",
-      "name": "samples (samples\\samples)",
+      "type": "remoteWindows",
+      "name": "samples-noGUI.exe (samples-noGUI\\samples-noGUI.exe)",
       "project": "CMakeLists.txt",
-      "projectTarget": "samples (samples\\samples)",
-      "comment": "Learn how to configure remote debugging. See here for more info http://aka.ms/vslinuxdebug",
-      "debuggerConfiguration": "gdb",
+      "projectTarget": "samples-noGUI.exe (samples-noGUI\\samples-noGUI.exe)",
+      "remoteMachineName": "DESKTOP-RVU2FRJ",
+      "cwd": "${debugInfo.defaultWorkingDirectory}",
+      "program": "${debugInfo.fullTargetPath}",
+      "deploy": [],
+      "comment": "Learn how to configure remote debugging. See here for more info https://docs.microsoft.com/cpp/build/cmake-remote-debugging",
       "args": [],
-      "env": {
-        "DISPLAY": ":1"
-      }
+      "env": {}
     }
   ]
 }
